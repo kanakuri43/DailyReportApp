@@ -17,7 +17,7 @@
                     FontWeight="Bold"
                     FontSize="24"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
-        <StackPanel Grid.Row="1" Width="235"
+        <StackPanel Grid.Row="1" Width="300"
                         HorizontalAlignment="Center">
 
             <Grid>
@@ -47,6 +47,7 @@
                            Text="作成者"
                            VerticalAlignment="Center"/>
                 <ComboBox  Grid.Row="1" Grid.Column="1"
+                           ItemsSource="{Binding Employees}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0"

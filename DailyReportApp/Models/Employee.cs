@@ -9,6 +9,7 @@ namespace DailyReportApp.Models
     public class Employee
     {
         public int EmployeeId { get; set; }
+        public int State { get; set; }
         public string EmployeeName { get; set; }
     }
 }
