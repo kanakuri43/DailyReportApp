@@ -4,50 +4,56 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.RowSpan="2">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="RoyalBlue" Offset="0.0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+
 
         <TextBlock Text="作業日報"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"
-                    Foreground="White"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
-        <StackPanel Grid.Row="1" Width="235"
-                    HorizontalAlignment="Center" >
 
+        <Grid Grid.Row="1"
+              Width="235">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0"
+                    Content="日報入力"
+                    FontSize="16"
+                    Command="{Binding RegisterReportCommand}" />
 
-            <Button Content="日報入力"
+            <Button Grid.Row="1"
+                    Content="日報検索"
                         FontSize="16"
-                        Foreground="White"
-                        Background="RoyalBlue"
-                        Margin="0,50,0,0"
-                        IsDefault="True"
-                        Command="{Binding RegisterReportCommand}" />
-
-            <Button Content="日報検索"
-                        FontSize="16"
-                        Foreground="White"
-                        Background="RoyalBlue"
-                        Margin="0,10,0,0"
-                        IsDefault="True"
                         Command="{Binding FindReportCommand}" />
 
 
+            <StackPanel Grid.Row="3"
+                        Height="30"
+                        Orientation="Horizontal">
+                <ComboBox />
+                <TextBlock Text="年" VerticalAlignment="Center"/>
+                <ComboBox />
+                <TextBlock Text="月"  VerticalAlignment="Center"/>
 
-        </StackPanel>
+            </StackPanel>
+            <ListBox Grid.Row="4"/>
+
+        </Grid>
 
     </Grid>
 </UserControl>

@@ -1,40 +1,101 @@
 ﻿<UserControl x:Class="DailyReportApp.Views.RegisterReport"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Grid.RowSpan="2">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="RoyalBlue" Offset="0.0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+
 
         <TextBlock Text="日報入力"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"
-                    Foreground="White"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
         <StackPanel Grid.Row="1" Width="235"
                         HorizontalAlignment="Center">
 
-            <DatePicker />
-            
-            
-            <Button Content="登録"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="日付"
+                           VerticalAlignment="Center"/>
+                <DatePicker Grid.Row="0" Grid.Column="1"
+                            VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="作成者"
+                           VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="1" Grid.Column="1"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Text="作業"
+                           VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="2" Grid.Column="1"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           Text="担当"
+                           VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="3" Grid.Column="1"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0"
+                           Text="作業時間"
+                           VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="4" Grid.Column="1"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0"
+                           Text="使用機械"
+                           VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="5" Grid.Column="1"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="6" Grid.Column="0"
+                           Text="コメント"
+                           VerticalAlignment="Center"/>
+                <TextBox  Grid.Row="6" Grid.Column="1"
+                          TextWrapping="Wrap"
+                          AcceptsReturn="True"/>
+            </Grid>
+
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="登録"
+                        Width="100"
                         FontSize="16"
-                        Margin="0,10,0,0"
                         IsDefault="True"
-                        Command="{Binding RegisterReportCommand}" />
+                        Command="{Binding RegisterCommand}" />
+                <Button Content="キャンセル"
+                        Width="100"
+                        FontSize="16"
+                        Margin="10,0,0,0"
+                        IsDefault="True"
+                        Command="{Binding CancelCommand}" />
+
+            </StackPanel>
 
 
         </StackPanel>
