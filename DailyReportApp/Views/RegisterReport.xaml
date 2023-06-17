@@ -25,7 +25,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="100"/>
@@ -41,31 +41,44 @@
                            Text="日付"
                            VerticalAlignment="Center"/>
                 <DatePicker Grid.Row="0" Grid.Column="1"
+                            SelectedDate="{Binding ReportDate}"
                             VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0"
                            Text="作成者"
                            VerticalAlignment="Center"/>
                 <ComboBox  Grid.Row="1" Grid.Column="1"
+                           SelectedValuePath="SelectedValue"
+                           DisplayMemberPath="DisplayMember"
                            ItemsSource="{Binding Employees}"
+                           SelectedValue="{Binding AuthorId}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0"
                            Text="作業"
                            VerticalAlignment="Center"/>
                 <ComboBox  Grid.Row="2" Grid.Column="1"
+                           SelectedValuePath="SelectedValue"
+                           DisplayMemberPath="DisplayMember"
+                           ItemsSource="{Binding WorkContents}"
+                           SelectedValue="{Binding WorkContentId}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0"
                            Text="担当"
                            VerticalAlignment="Center"/>
-                <ComboBox  Grid.Row="3" Grid.Column="1"
+                <ListBox   Grid.Row="3" Grid.Column="1"
+                           SelectionMode="Multiple"
+                           SelectedValuePath="SelectedValue"
+                           DisplayMemberPath="DisplayMember"
+                           ItemsSource="{Binding Employees}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0"
                            Text="作業時間"
                            VerticalAlignment="Center"/>
-                <ComboBox  Grid.Row="4" Grid.Column="1"
+                <TextBox  Grid.Row="4" Grid.Column="1"
+                          Text="{Binding WorkingHours}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="5" Grid.Column="0"

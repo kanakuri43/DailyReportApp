@@ -10,19 +10,21 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Diagnostics;
 
 namespace DailyReportApp.ViewModels
 {
     public class RegisterReportViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
-        private ObservableCollection<Employee> _employees;
+        //private ObservableCollection<Employee> _employees;
+        private ObservableCollection<ComboBoxViewModel> _employees = new ObservableCollection<ComboBoxViewModel>();
+        private ObservableCollection<ComboBoxViewModel> _workContents = new ObservableCollection<ComboBoxViewModel>();
+        private DateTime _reportDate;
+        private int _authorId;
+        private int _workContentId;
+        private float _workingHours;
 
-        public ObservableCollection<Employee> Employees
-        {
-            get => _employees;
-            set => SetProperty(ref _employees, value);
-        }
 
 
         public RegisterReportViewModel(IRegionManager regionManager)
@@ -33,35 +35,108 @@ namespace DailyReportApp.ViewModels
             RegisterCommand = new DelegateCommand(RegisterCommandExecute);
             DeleteCommand = new DelegateCommand(DeleteCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
+
+            ReportDate = DateTime.Today;
+
+            SqlDataReader dr;
+
+            var dbEmp = new Database();
+            dbEmp.SQL = "SELECT "
+                    + "  employee_id "
+                    + "  , employee_name "
+                    + " FROM "
+                    + "   employees "
+                    + " WHERE "
+                    + "   state = 0 "
+                    + " ORDER BY "
+                    + "   employee_id ";
+            dr = dbEmp.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Employees.Add(new ComboBoxViewModel(int.Parse(dr["employee_id"].ToString()), dr["employee_name"].ToString()));
+                }
+            }
+
+            var dbWC = new Database();
+            dbWC.SQL = "SELECT "
+                    + "  work_content_id "
+                    + "  , work_content_name "
+                    + " FROM "
+                    + "   work_contents "
+                    + " WHERE "
+                    + "   state = 0 "
+                    + " ORDER BY "
+                    + "   work_content_id ";
+            dr = dbWC.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    WorkContents.Add(new ComboBoxViewModel(int.Parse(dr["work_content_id"].ToString()), dr["work_content_name"].ToString()));
+                }
+            }
+
+
         }
         public DelegateCommand RegisterCommand { get; }
         public DelegateCommand DeleteCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
+        public DateTime ReportDate
+        {
+            get { return _reportDate; }
+            set { SetProperty(ref _reportDate, value); }
+        }
+
+        public ObservableCollection<ComboBoxViewModel> Employees
+        {
+            get => _employees;
+            set => SetProperty(ref _employees, value);
+        }
+        public ObservableCollection<ComboBoxViewModel> WorkContents
+        {
+            get => _workContents;
+            set => SetProperty(ref _workContents, value);
+        }
+
+        public int AuthorId
+        {
+            get { return _authorId; }
+            set { SetProperty(ref _authorId, value); }
+        }
+        public int WorkContentId
+        {
+            get { return _workContentId; }
+            set { SetProperty(ref _workContentId, value); }
+        }
+        public float WorkingHours
+        {
+            get { return _workingHours; }
+            set { SetProperty(ref _workingHours, value); }
+        }
+
         private void RegisterCommandExecute()
         {
-            string connectionString = @"Data Source=192.168.3.11;Initial Catalog=DailyReportDB;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
-            string operation = "INSERT"; // or "UPDATE"
-            int? reportId = null; // set this if operation is "UPDATE"
+            string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
             DateTime workDate = DateTime.Now;
             int authorId = 7;
             int workContentId = 4;
             decimal workingHours = 3;
             int machineId = 1;
             string notes = "Test note";
-            int[] employeeIds = new int[] { 1, 3, 5, 7 }; // the assignee IDs
+            int[] employeeIds = new int[] { 3, 5, 7 }; // the assignee IDs
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("sp_InsertOrUpdateDailyReport", connection))
+                using (SqlCommand command = new SqlCommand("usp_register_daily_report", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
                     // Add parameters to SqlCommand
-                    command.Parameters.Add(new SqlParameter("@arg_operation", operation));
-                    command.Parameters.Add(new SqlParameter("@arg_daily_report_id", reportId));
                     command.Parameters.Add(new SqlParameter("@arg_work_date", DateTime.Parse("2023/05/01")));
                     command.Parameters.Add(new SqlParameter("@arg_author_id", authorId));
                     command.Parameters.Add(new SqlParameter("@arg_work_content_id", workContentId));

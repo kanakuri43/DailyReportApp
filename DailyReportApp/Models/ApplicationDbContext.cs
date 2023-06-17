@@ -10,7 +10,7 @@ namespace DailyReportApp.Models
 {
     public class ApplicationDbContext : DbContext
     {
-        //public DbSet<DailyReport> DailyReports { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
