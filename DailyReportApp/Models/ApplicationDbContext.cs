@@ -12,18 +12,21 @@ namespace DailyReportApp.Models
     {
         public DbSet<Employee> Employees { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            var connectionStringBuilder = new SqlConnectionStringBuilder
-            {
-                DataSource = "localhost",
-                InitialCatalog = "DailyReportDB",
-                IntegratedSecurity = true
-            };
-
-            //optionsBuilder.UseSqlServer(connectionStringBuilder.ConnectionString);
-            optionsBuilder.UseSqlServer(@"Data Source=172.16.6.11; Initial Catalog=DailyReportData01; User ID=sa;Password=Sapassword1; Encrypt=false");
-
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var connectionStringBuilder = new SqlConnectionStringBuilder
+        //    {
+        //        DataSource = "localhost",
+        //        InitialCatalog = "DailyReportDB",
+        //        IntegratedSecurity = true
+        //    };
+
+        //    //optionsBuilder.UseSqlServer(connectionStringBuilder.ConnectionString);
+        //    optionsBuilder.UseSqlServer(@"Data Source=172.16.6.11\sqlexpress; Initial Catalog=daily_report_db; User ID=sa;Password=Sapassword1; Encrypt=false");
+
+        //}
     }
 }

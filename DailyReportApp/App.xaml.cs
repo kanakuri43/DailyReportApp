@@ -1,4 +1,6 @@
-﻿using DailyReportApp.Views;
+﻿using DailyReportApp.Models;
+using DailyReportApp.Views;
+using Microsoft.EntityFrameworkCore;
 using Prism.Ioc;
 using System.Windows;
 
@@ -9,6 +11,7 @@ namespace DailyReportApp
     /// </summary>
     public partial class App
     {
+
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
@@ -21,5 +24,6 @@ namespace DailyReportApp
             containerRegistry.RegisterForNavigation<FindReport>();
 
         }
+
     }
 }

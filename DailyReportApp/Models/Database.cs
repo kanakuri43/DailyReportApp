@@ -12,26 +12,29 @@ using System.Windows;
 using Microsoft.Data.SqlClient;
 
 public class Database
-    {
-    public string SQL { set;  get; }
+{
+    private SqlConnection _connection { set; get; }
 
-    public SqlConnection Connection { set;  get; }
+    public string SQL { set; get; }
+    public string ConnectionString { set; get; }
+
 
     public Database()
     {
+        string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+        XElement xml = XElement.Load(currentDirectory + "config.xml");
+        ConnectionString = xml.Element("ConnectString").Value;
+
         OpenConnection();
     }
 
     protected Boolean OpenConnection()
-    {        
-        string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-        XElement xml = XElement.Load(currentDirectory + "config.xml");
+    {
 
         try
         {
-            var cs = xml.Element("ConnectString").Value;
-            Connection = new SqlConnection(cs);
-            Connection.Open();
+            _connection = new SqlConnection(ConnectionString);
+            _connection.Open();
             return true;
         }
         catch (Exception ex)
@@ -46,7 +49,7 @@ public class Database
         SqlCommand command = new SqlCommand();
         {
             // バージョン情報取得SQLを実行します。
-            command.Connection = Connection;
+            command.Connection = _connection;
             command.CommandText = "select version()";
             var value = command.ExecuteScalar();
             var versionNo = value.ToString();
@@ -57,7 +60,7 @@ public class Database
 
     public DataTable ReadAsDataTable()
     {
-        using (SqlCommand command = new SqlCommand(SQL, Connection))
+        using (SqlCommand command = new SqlCommand(SQL, _connection))
         {
             DataTable dt;
             var addapter = new SqlDataAdapter(command);
@@ -68,7 +71,7 @@ public class Database
     }
     public SqlDataReader ReadAsDataReader()
     {
-        using (SqlCommand command = new SqlCommand(SQL, Connection)) 
+        using (SqlCommand command = new SqlCommand(SQL, _connection))
         {
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -85,7 +88,7 @@ public class Database
 
     public bool ExecuteProcedure()
     {
-        using (SqlCommand command = new SqlCommand(SQL, Connection))
+        using (SqlCommand command = new SqlCommand(SQL, _connection))
         {
             command.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = command.ExecuteReader();

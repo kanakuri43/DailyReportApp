@@ -59,6 +59,8 @@ namespace DailyReportApp.ViewModels
                 }
             }
 
+
+
             var dbWC = new Database();
             dbWC.SQL = "SELECT "
                     + "  work_content_id "
@@ -121,9 +123,6 @@ namespace DailyReportApp.ViewModels
         {
             string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
             DateTime workDate = DateTime.Now;
-            int authorId = 7;
-            int workContentId = 4;
-            decimal workingHours = 3;
             int machineId = 1;
             string notes = "Test note";
             int[] employeeIds = new int[] { 3, 5, 7 }; // the assignee IDs
@@ -137,10 +136,10 @@ namespace DailyReportApp.ViewModels
                     command.CommandType = CommandType.StoredProcedure;
 
                     // Add parameters to SqlCommand
-                    command.Parameters.Add(new SqlParameter("@arg_work_date", DateTime.Parse("2023/05/01")));
-                    command.Parameters.Add(new SqlParameter("@arg_author_id", authorId));
-                    command.Parameters.Add(new SqlParameter("@arg_work_content_id", workContentId));
-                    command.Parameters.Add(new SqlParameter("@arg_working_hours", workingHours));
+                    command.Parameters.Add(new SqlParameter("@arg_work_date", ReportDate));
+                    command.Parameters.Add(new SqlParameter("@arg_author_id", AuthorId));
+                    command.Parameters.Add(new SqlParameter("@arg_work_content_id", WorkContentId));
+                    command.Parameters.Add(new SqlParameter("@arg_working_hours", WorkingHours));
                     command.Parameters.Add(new SqlParameter("@arg_machine_id", machineId));
                     command.Parameters.Add(new SqlParameter("@arg_notes", notes));
 
