@@ -20,10 +20,13 @@ namespace DailyReportApp.ViewModels
         //private ObservableCollection<Employee> _employees;
         private ObservableCollection<ComboBoxViewModel> _employees = new ObservableCollection<ComboBoxViewModel>();
         private ObservableCollection<ComboBoxViewModel> _workContents = new ObservableCollection<ComboBoxViewModel>();
+        private ObservableCollection<ComboBoxViewModel> _machines = new ObservableCollection<ComboBoxViewModel>();
         private DateTime _reportDate;
         private int _authorId;
         private int _workContentId;
         private float _workingHours;
+        private int _machineId;
+        private string _notes;
 
 
 
@@ -38,10 +41,11 @@ namespace DailyReportApp.ViewModels
 
             ReportDate = DateTime.Today;
 
+            
             SqlDataReader dr;
 
-            var dbEmp = new Database();
-            dbEmp.SQL = "SELECT "
+            var dbEmployees = new Database();
+            dbEmployees.SQL = "SELECT "
                     + "  employee_id "
                     + "  , employee_name "
                     + " FROM "
@@ -50,7 +54,7 @@ namespace DailyReportApp.ViewModels
                     + "   state = 0 "
                     + " ORDER BY "
                     + "   employee_id ";
-            dr = dbEmp.ReadAsDataReader();
+            dr = dbEmployees.ReadAsDataReader();
             if (dr != null)
             {
                 while (dr.Read())
@@ -60,9 +64,8 @@ namespace DailyReportApp.ViewModels
             }
 
 
-
-            var dbWC = new Database();
-            dbWC.SQL = "SELECT "
+            var dbWorkContents = new Database();
+            dbWorkContents.SQL = "SELECT "
                     + "  work_content_id "
                     + "  , work_content_name "
                     + " FROM "
@@ -71,12 +74,32 @@ namespace DailyReportApp.ViewModels
                     + "   state = 0 "
                     + " ORDER BY "
                     + "   work_content_id ";
-            dr = dbWC.ReadAsDataReader();
+            dr = dbWorkContents.ReadAsDataReader();
             if (dr != null)
             {
                 while (dr.Read())
                 {
                     WorkContents.Add(new ComboBoxViewModel(int.Parse(dr["work_content_id"].ToString()), dr["work_content_name"].ToString()));
+                }
+            }
+
+
+            var dbMachines = new Database();
+            dbMachines.SQL = "SELECT "
+                    + "  machine_id "
+                    + "  , machine_name "
+                    + " FROM "
+                    + "   machines "
+                    + " WHERE "
+                    + "   state = 0 "
+                    + " ORDER BY "
+                    + "   machine_id ";
+            dr = dbMachines.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Machines.Add(new ComboBoxViewModel(int.Parse(dr["machine_id"].ToString()), dr["machine_name"].ToString()));
                 }
             }
 
@@ -102,6 +125,11 @@ namespace DailyReportApp.ViewModels
             get => _workContents;
             set => SetProperty(ref _workContents, value);
         }
+        public ObservableCollection<ComboBoxViewModel> Machines
+        {
+            get => _machines;
+            set => SetProperty(ref _machines, value);
+        }
 
         public int AuthorId
         {
@@ -118,13 +146,20 @@ namespace DailyReportApp.ViewModels
             get { return _workingHours; }
             set { SetProperty(ref _workingHours, value); }
         }
+        public int MachineId
+        {
+            get { return _machineId; }
+            set { SetProperty(ref _machineId, value); }
+        }
+        public string Notes
+        {
+            get { return _notes; }
+            set { SetProperty(ref _notes, value); }
+        }
 
         private void RegisterCommandExecute()
         {
             string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
-            DateTime workDate = DateTime.Now;
-            int machineId = 1;
-            string notes = "Test note";
             int[] employeeIds = new int[] { 3, 5, 7 }; // the assignee IDs
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -140,8 +175,8 @@ namespace DailyReportApp.ViewModels
                     command.Parameters.Add(new SqlParameter("@arg_author_id", AuthorId));
                     command.Parameters.Add(new SqlParameter("@arg_work_content_id", WorkContentId));
                     command.Parameters.Add(new SqlParameter("@arg_working_hours", WorkingHours));
-                    command.Parameters.Add(new SqlParameter("@arg_machine_id", machineId));
-                    command.Parameters.Add(new SqlParameter("@arg_notes", notes));
+                    command.Parameters.Add(new SqlParameter("@arg_machine_id", MachineId));
+                    command.Parameters.Add(new SqlParameter("@arg_notes", Notes));
 
                     // Create DataTable for employeeIds
                     DataTable employeeIdsTable = new DataTable();

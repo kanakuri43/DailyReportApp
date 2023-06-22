@@ -85,6 +85,10 @@
                            Text="使用機械"
                            VerticalAlignment="Center"/>
                 <ComboBox  Grid.Row="5" Grid.Column="1"
+                           SelectedValuePath="SelectedValue"
+                           DisplayMemberPath="DisplayMember"
+                           ItemsSource="{Binding Machines}"
+                           SelectedValue="{Binding MachineId}"
                            VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="6" Grid.Column="0"
@@ -92,6 +96,7 @@
                            VerticalAlignment="Center"/>
                 <TextBox  Grid.Row="6" Grid.Column="1"
                           TextWrapping="Wrap"
+                          Text="{Binding Notes}"
                           AcceptsReturn="True"/>
             </Grid>
 
