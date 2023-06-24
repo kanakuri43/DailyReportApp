@@ -27,6 +27,7 @@ namespace DailyReportApp.ViewModels
         private float _workingHours;
         private int _machineId;
         private string _notes;
+        private ObservableCollection<ItemViewModel> _workers;
 
 
 
@@ -41,7 +42,7 @@ namespace DailyReportApp.ViewModels
 
             ReportDate = DateTime.Today;
 
-            
+
             SqlDataReader dr;
 
             var dbEmployees = new Database();
@@ -57,9 +58,12 @@ namespace DailyReportApp.ViewModels
             dr = dbEmployees.ReadAsDataReader();
             if (dr != null)
             {
+                Workers = new ObservableCollection<ItemViewModel>();
                 while (dr.Read())
                 {
                     Employees.Add(new ComboBoxViewModel(int.Parse(dr["employee_id"].ToString()), dr["employee_name"].ToString()));
+                    Workers.Add(new ItemViewModel() { Id = int.Parse(dr["employee_id"].ToString()), Name = dr["employee_name"].ToString(), Selected = false });
+
                 }
             }
 
@@ -156,6 +160,11 @@ namespace DailyReportApp.ViewModels
             get { return _notes; }
             set { SetProperty(ref _notes, value); }
         }
+        public ObservableCollection<ItemViewModel> Workers
+        {
+            get { return _workers; }
+            set { SetProperty(ref _workers, value); }
+        }
 
         private void RegisterCommandExecute()
         {
@@ -182,9 +191,12 @@ namespace DailyReportApp.ViewModels
                     DataTable employeeIdsTable = new DataTable();
                     employeeIdsTable.Columns.Add("employee_id", typeof(int));
 
-                    foreach (var id in employeeIds)
+                    foreach (var worker in Workers)
                     {
-                        employeeIdsTable.Rows.Add(id);
+                        if (worker.Selected)
+                        {
+                            employeeIdsTable.Rows.Add(worker.Id);
+                        }
                     }
 
                     // Create SqlParameter for @arg_employee_ids
