@@ -73,8 +73,14 @@
 
             </StackPanel>
             <ListBox Grid.Row="4"
-                     ItemsSource="{Binding ReportList}"
-                     DisplayMemberPath="ReportDate">
+                     ItemsSource="{Binding ReportList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding WorkDate, StringFormat={}{0:yyyy年 MM月 dd日 }}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
         </Grid>

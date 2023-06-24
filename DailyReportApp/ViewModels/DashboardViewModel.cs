@@ -24,13 +24,15 @@ namespace DailyReportApp.ViewModels
         public DashboardViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
+
             RegisterReportCommand = new DelegateCommand(RegisterReportCommandExecute);
+            YearMonthSelectionChanged = new DelegateCommand(YearMonthSelectionChangedExecute);
 
             SelectedYear = DateTime.Now.Year;
             SelectedMonth = DateTime.Now.Month;
 
             var span = 10;
-            int i = 0;
+            int i;
             for (i = 0; i < span; i++)
             {
                 Years.Add(new ComboBoxViewModel(SelectedYear - i, (SelectedYear - i).ToString()));
@@ -40,33 +42,11 @@ namespace DailyReportApp.ViewModels
                 Months.Add(new ComboBoxViewModel(i,  i.ToString()));
             }
 
-            SqlDataReader dr;
-
-            var dbEmployees = new Database();
-            dbEmployees.SQL = "SELECT "
-                    + "   work_date "
-                    + " FROM "
-                    + "   uv_daily_reports "
-                    + " WHERE "
-                    + "   YEAR(work_date) =" + SelectedYear.ToString()
-                    + "   AND MONTH(work_date) =" + SelectedMonth.ToString()
-                    + " GROUP BY "
-                    + "   work_date "
-                    + " ORDER BY "
-                    + "   work_date ";
-            dr = dbEmployees.ReadAsDataReader();
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    ReportList.Add(new MonthlyReportList(DateTime.Parse(dr["work_date"].ToString()),1));
-
-                }
-            }
-
+            ShowMonthlyReport();
         }
 
         public DelegateCommand RegisterReportCommand { get; }
+        public DelegateCommand YearMonthSelectionChanged { get; }
 
         public ObservableCollection<ComboBoxViewModel> Years
         {
@@ -100,6 +80,42 @@ namespace DailyReportApp.ViewModels
             // Menu表示
             var p = new NavigationParameters();
             _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
+
+        }
+
+        private void YearMonthSelectionChangedExecute()
+        {
+            ShowMonthlyReport();
+        }
+
+        private void ShowMonthlyReport()
+        {
+            SqlDataReader dr;
+
+            ReportList.Clear();
+
+            var dbEmployees = new Database();
+            dbEmployees.SQL = "SELECT "
+                    + "   work_date "
+                    + " FROM "
+                    + "   uv_daily_reports "
+                    + " WHERE "
+                    + "   YEAR(work_date) =" + SelectedYear.ToString()
+                    + "   AND MONTH(work_date) =" + SelectedMonth.ToString()
+                    + " GROUP BY "
+                    + "   work_date "
+                    + " ORDER BY "
+                    + "   work_date ";
+            dr = dbEmployees.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    ReportList.Add(new MonthlyReportList(DateTime.Parse(dr["work_date"].ToString()), "abcdefg"));
+
+                }
+            }
+
 
         }
     }

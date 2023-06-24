@@ -8,14 +8,14 @@ namespace DailyReportApp.ViewModels
 {
     public sealed class MonthlyReportList
     {
-        public MonthlyReportList(DateTime Date, int Weather)
+        public MonthlyReportList(DateTime Date, string Contents)
         {
-            ReportDate = Date;
-            ReportWeather = Weather;
+            WorkDate = Date;
+            WorkContents = Contents;
 
         }
 
-        public DateTime ReportDate { get; }
-        public int ReportWeather { get; }
+        public DateTime WorkDate { get; }
+        public string WorkContents { get; }
     }
 }
