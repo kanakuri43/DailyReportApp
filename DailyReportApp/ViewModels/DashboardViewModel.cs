@@ -7,6 +7,7 @@ using System.Linq;
 using DailyReportApp.Views;
 using System.Collections.ObjectModel;
 using DailyReportApp.Models;
+using Microsoft.Data.SqlClient;
 
 namespace DailyReportApp.ViewModels
 {
@@ -16,7 +17,7 @@ namespace DailyReportApp.ViewModels
 
         private ObservableCollection<ComboBoxViewModel> _years = new ObservableCollection<ComboBoxViewModel>();
         private ObservableCollection<ComboBoxViewModel> _months = new ObservableCollection<ComboBoxViewModel>();
-
+        private ObservableCollection<MonthlyReportList> _reportList = new ObservableCollection<MonthlyReportList>();
         private int _year;
         private int _month;
 
@@ -38,6 +39,31 @@ namespace DailyReportApp.ViewModels
             {
                 Months.Add(new ComboBoxViewModel(i,  i.ToString()));
             }
+
+            SqlDataReader dr;
+
+            var dbEmployees = new Database();
+            dbEmployees.SQL = "SELECT "
+                    + "   work_date "
+                    + " FROM "
+                    + "   uv_daily_reports "
+                    + " WHERE "
+                    + "   YEAR(work_date) =" + SelectedYear.ToString()
+                    + "   AND MONTH(work_date) =" + SelectedMonth.ToString()
+                    + " GROUP BY "
+                    + "   work_date "
+                    + " ORDER BY "
+                    + "   work_date ";
+            dr = dbEmployees.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    ReportList.Add(new MonthlyReportList(DateTime.Parse(dr["work_date"].ToString()),1));
+
+                }
+            }
+
         }
 
         public DelegateCommand RegisterReportCommand { get; }
@@ -62,6 +88,11 @@ namespace DailyReportApp.ViewModels
         {
             get { return _month; }
             set { SetProperty(ref _month, value); }
+        }
+        public ObservableCollection<MonthlyReportList> ReportList
+        {
+            get => _reportList;
+            set => SetProperty(ref _reportList, value);
         }
 
         private void RegisterReportCommandExecute()

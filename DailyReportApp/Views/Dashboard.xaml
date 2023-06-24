@@ -1,5 +1,6 @@
 ﻿<UserControl x:Class="DailyReportApp.Views.Dashboard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:prism="http://prismlibrary.com/"             
@@ -26,9 +27,6 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition/>
-                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0"
@@ -44,7 +42,16 @@
                           DisplayMemberPath="DisplayMember"
                           ItemsSource="{Binding Years}"
                           SelectedValue="{Binding SelectedYear}"
-                          Width="60"/>
+                          Width="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <prism:InvokeCommandAction 
+                            Command="{Binding YearMonthSelectionChanged}" 
+                            TriggerParameterPath="AddedItems"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ComboBox>
                 <TextBlock Text="年" 
                            VerticalAlignment="Center"
                            Margin="0,0,20,0"/>
@@ -52,11 +59,23 @@
                           DisplayMemberPath="DisplayMember"
                           ItemsSource="{Binding Months}"
                           SelectedValue="{Binding SelectedMonth}"
-                          Width="50"/>
+                          Width="50">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <prism:InvokeCommandAction 
+                            Command="{Binding YearMonthSelectionChanged}" 
+                            TriggerParameterPath="AddedItems"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ComboBox>
                 <TextBlock Text="月"  VerticalAlignment="Center"/>
 
             </StackPanel>
-            <ListBox Grid.Row="4"/>
+            <ListBox Grid.Row="4"
+                     ItemsSource="{Binding ReportList}"
+                     DisplayMemberPath="ReportDate">
+            </ListBox>
 
         </Grid>
 
