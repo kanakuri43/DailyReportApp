@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DailyReportApp.ViewModels
 {
-    public class ItemViewModel : BindableBase
+    public class MultiSelectViewModel : BindableBase
     {
         private int _id;
         private string _name;

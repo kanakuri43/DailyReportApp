@@ -26,8 +26,8 @@ namespace DailyReportApp.ViewModels
         private int _workContentId;
         private float _workingHours;
         private int _machineId;
-        private string _notes;
-        private ObservableCollection<ItemViewModel> _workers;
+        private string _notes = "";
+        private ObservableCollection<MultiSelectViewModel> _workers;
 
 
 
@@ -58,11 +58,11 @@ namespace DailyReportApp.ViewModels
             dr = dbEmployees.ReadAsDataReader();
             if (dr != null)
             {
-                Workers = new ObservableCollection<ItemViewModel>();
+                Workers = new ObservableCollection<MultiSelectViewModel>();
                 while (dr.Read())
                 {
                     Employees.Add(new ComboBoxViewModel(int.Parse(dr["employee_id"].ToString()), dr["employee_name"].ToString()));
-                    Workers.Add(new ItemViewModel() { Id = int.Parse(dr["employee_id"].ToString()), Name = dr["employee_name"].ToString(), Selected = false });
+                    Workers.Add(new MultiSelectViewModel() { Id = int.Parse(dr["employee_id"].ToString()), Name = dr["employee_name"].ToString(), Selected = false });
 
                 }
             }
@@ -160,7 +160,7 @@ namespace DailyReportApp.ViewModels
             get { return _notes; }
             set { SetProperty(ref _notes, value); }
         }
-        public ObservableCollection<ItemViewModel> Workers
+        public ObservableCollection<MultiSelectViewModel> Workers
         {
             get { return _workers; }
             set { SetProperty(ref _workers, value); }

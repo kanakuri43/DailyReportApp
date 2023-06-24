@@ -36,18 +36,23 @@
                     FontSize="16"
                     Command="{Binding RegisterReportCommand}" />
 
-            <Button Grid.Row="1"
-                    Content="日報検索"
-                        FontSize="16"
-                        Command="{Binding FindReportCommand}" />
-
 
             <StackPanel Grid.Row="3"
                         Height="30"
                         Orientation="Horizontal">
-                <ComboBox />
-                <TextBlock Text="年" VerticalAlignment="Center"/>
-                <ComboBox />
+                <ComboBox SelectedValuePath="SelectedValue"
+                          DisplayMemberPath="DisplayMember"
+                          ItemsSource="{Binding Years}"
+                          SelectedValue="{Binding SelectedYear}"
+                          Width="60"/>
+                <TextBlock Text="年" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,20,0"/>
+                <ComboBox SelectedValuePath="SelectedValue"
+                          DisplayMemberPath="DisplayMember"
+                          ItemsSource="{Binding Months}"
+                          SelectedValue="{Binding SelectedMonth}"
+                          Width="50"/>
                 <TextBlock Text="月"  VerticalAlignment="Center"/>
 
             </StackPanel>
