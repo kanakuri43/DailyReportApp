@@ -76,8 +76,9 @@
                      ItemsSource="{Binding ReportList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding WorkDate, StringFormat={}{0:yyyy年 MM月 dd日 }}" />
+                            <TextBlock Text="{Binding WorkContents}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -17,7 +17,7 @@ namespace DailyReportApp.ViewModels
 
         private ObservableCollection<ComboBoxViewModel> _years = new ObservableCollection<ComboBoxViewModel>();
         private ObservableCollection<ComboBoxViewModel> _months = new ObservableCollection<ComboBoxViewModel>();
-        private ObservableCollection<MonthlyReportList> _reportList = new ObservableCollection<MonthlyReportList>();
+        private ObservableCollection<MonthlyReportListViewModel> _reportList = new ObservableCollection<MonthlyReportListViewModel>();
         private int _year;
         private int _month;
 
@@ -69,7 +69,7 @@ namespace DailyReportApp.ViewModels
             get { return _month; }
             set { SetProperty(ref _month, value); }
         }
-        public ObservableCollection<MonthlyReportList> ReportList
+        public ObservableCollection<MonthlyReportListViewModel> ReportList
         {
             get => _reportList;
             set => SetProperty(ref _reportList, value);
@@ -97,6 +97,7 @@ namespace DailyReportApp.ViewModels
             var dbEmployees = new Database();
             dbEmployees.SQL = "SELECT "
                     + "   work_date "
+                    + "   , MIN(work_content_name) work_content_name "
                     + " FROM "
                     + "   uv_daily_reports "
                     + " WHERE "
@@ -111,7 +112,7 @@ namespace DailyReportApp.ViewModels
             {
                 while (dr.Read())
                 {
-                    ReportList.Add(new MonthlyReportList(DateTime.Parse(dr["work_date"].ToString()), "abcdefg"));
+                    ReportList.Add(new MonthlyReportListViewModel(DateTime.Parse(dr["work_date"].ToString()), dr["work_content_name"].ToString()));
 
                 }
             }
