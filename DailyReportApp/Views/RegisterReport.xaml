@@ -4,7 +4,7 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid Background="White">
+    <Grid Background="White" Width="300">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
@@ -17,7 +17,7 @@
                     FontWeight="Bold"
                     FontSize="24"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
-        <StackPanel Grid.Row="1" Width="300"
+        <StackPanel Grid.Row="1" 
                         HorizontalAlignment="Center">
 
             <Grid>

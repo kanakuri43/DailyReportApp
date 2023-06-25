@@ -21,7 +21,7 @@
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
 
         <Grid Grid.Row="1"
-              Width="235">
+              Width="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
@@ -73,15 +73,17 @@
 
             </StackPanel>
             <ListBox Grid.Row="4"
-                     ItemsSource="{Binding ReportList}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding WorkDate, StringFormat={}{0:yyyy年 MM月 dd日 }}" />
-                            <TextBlock Text="{Binding WorkContents}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                     ItemsSource="{Binding ReportList}"
+                     SelectedValuePath="WorkDate"
+                     DisplayMemberPath="WorkDate" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <prism:InvokeCommandAction 
+                            Command="{Binding Path=DataContext.DailyReportListCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
+
+
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListBox>
 
         </Grid>
