@@ -88,6 +88,7 @@ namespace DailyReportApp.ViewModels
         {
             // Menu表示
             var p = new NavigationParameters();
+            p.Add(nameof(DailyReportListViewModel.SelectedDate), DateOnly.Parse("2023/01/01"));
             _regionManager.RequestNavigate("ContentRegion", nameof(DailyReportList), p);
 
         }
