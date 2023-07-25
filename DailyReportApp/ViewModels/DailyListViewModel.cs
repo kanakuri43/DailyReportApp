@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DailyReportApp.ViewModels
 {
-    public class DailyReportListViewModel : BindableBase, INavigationAware
+    public class DailyListViewModel : BindableBase, INavigationAware
     {
         private DateOnly _selectedDate;
 
@@ -17,7 +17,7 @@ namespace DailyReportApp.ViewModels
             set { SetProperty(ref _selectedDate, value); }
         }
 
-        public DailyReportListViewModel()
+        public DailyListViewModel()
         {
             
         }

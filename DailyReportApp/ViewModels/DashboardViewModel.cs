@@ -27,7 +27,7 @@ namespace DailyReportApp.ViewModels
 
             RegisterReportCommand = new DelegateCommand(RegisterReportCommandExecute);
             YearMonthSelectionChanged = new DelegateCommand(YearMonthSelectionChangedExecute);
-            DailyReportListCommand = new DelegateCommand(DailyReportListCommandExecute);
+            ReportListDoubleClickCommand = new DelegateCommand(ReportListDoubleClickCommandExecute);
 
             SelectedYear = DateTime.Now.Year;
             SelectedMonth = DateTime.Now.Month;
@@ -48,7 +48,7 @@ namespace DailyReportApp.ViewModels
 
         public DelegateCommand RegisterReportCommand { get; }
         public DelegateCommand YearMonthSelectionChanged { get; }
-        public DelegateCommand DailyReportListCommand { get; }
+        public DelegateCommand ReportListDoubleClickCommand { get; }
 
         public ObservableCollection<ComboBoxViewModel> Years
         {
@@ -84,12 +84,12 @@ namespace DailyReportApp.ViewModels
             _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
 
         }
-        private void DailyReportListCommandExecute()
+        private void ReportListDoubleClickCommandExecute()
         {
             // Menu表示
             var p = new NavigationParameters();
-            p.Add(nameof(DailyReportListViewModel.SelectedDate), DateOnly.Parse("2023/01/01"));
-            _regionManager.RequestNavigate("ContentRegion", nameof(DailyReportList), p);
+            p.Add(nameof(DailyListViewModel.SelectedDate), DateOnly.Parse("2023/01/01"));
+            _regionManager.RequestNavigate("ContentRegion", nameof(DailyList), p);
 
         }
 

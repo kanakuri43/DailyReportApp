@@ -168,7 +168,7 @@ namespace DailyReportApp.ViewModels
 
         private void RegisterCommandExecute()
         {
-            string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
+            string connectionString = @"Data Source=172.16.6.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
             int[] employeeIds = new int[] { 3, 5, 7 }; // the assignee IDs
 
             using (SqlConnection connection = new SqlConnection(connectionString))

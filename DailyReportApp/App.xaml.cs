@@ -22,7 +22,7 @@ namespace DailyReportApp
             containerRegistry.RegisterForNavigation<Dashboard>();
             containerRegistry.RegisterForNavigation<RegisterReport>();
             containerRegistry.RegisterForNavigation<FindReport>();
-            containerRegistry.RegisterForNavigation<DailyReportList>();
+            containerRegistry.RegisterForNavigation<DailyList>();
 
         }
 

@@ -78,7 +78,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <prism:InvokeCommandAction 
-                            Command="{Binding Path=DataContext.DailyReportListCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                            Command="{Binding Path=DataContext.ReportListDoubleClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
 
 
                     </i:EventTrigger>
