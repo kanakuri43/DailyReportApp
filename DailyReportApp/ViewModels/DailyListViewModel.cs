@@ -9,9 +9,9 @@ namespace DailyReportApp.ViewModels
 {
     public class DailyListViewModel : BindableBase, INavigationAware
     {
-        private DateOnly _selectedDate;
+        private DateTime _selectedDate;
 
-        public DateOnly SelectedDate
+        public DateTime SelectedDate
         {
             get { return _selectedDate; }
             set { SetProperty(ref _selectedDate, value); }
@@ -24,7 +24,7 @@ namespace DailyReportApp.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            SelectedDate = navigationContext.Parameters.GetValue<DateOnly>(nameof(SelectedDate));
+            SelectedDate = navigationContext.Parameters.GetValue<DateTime>(nameof(SelectedDate));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

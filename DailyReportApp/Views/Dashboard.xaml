@@ -72,9 +72,10 @@
 
             </StackPanel>
             <ListBox Grid.Row="4"
-                     ItemsSource="{Binding ReportList}"
                      SelectedValuePath="WorkDate"
-                     DisplayMemberPath="WorkDate" >
+                     DisplayMemberPath="WorkDate" 
+                     ItemsSource="{Binding ReportList}" 
+                     SelectedValue="{Binding SelectedWorkDate}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <prism:InvokeCommandAction 

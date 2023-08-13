@@ -20,6 +20,7 @@ namespace DailyReportApp.ViewModels
         private ObservableCollection<MonthlyReportListViewModel> _reportList = new ObservableCollection<MonthlyReportListViewModel>();
         private int _year;
         private int _month;
+        private DateTime _workDate;
 
         public DashboardViewModel(IRegionManager regionManager)
         {
@@ -60,6 +61,11 @@ namespace DailyReportApp.ViewModels
             get => _months;
             set => SetProperty(ref _months, value);
         }
+        public ObservableCollection<MonthlyReportListViewModel> ReportList
+        {
+            get => _reportList;
+            set => SetProperty(ref _reportList, value);
+        }
 
         public int SelectedYear
         {
@@ -71,10 +77,10 @@ namespace DailyReportApp.ViewModels
             get { return _month; }
             set { SetProperty(ref _month, value); }
         }
-        public ObservableCollection<MonthlyReportListViewModel> ReportList
+        public DateTime SelectedWorkDate
         {
-            get => _reportList;
-            set => SetProperty(ref _reportList, value);
+            get { return _workDate; }
+            set { SetProperty(ref _workDate, value); }
         }
 
         private void RegisterReportCommandExecute()
@@ -88,7 +94,7 @@ namespace DailyReportApp.ViewModels
         {
             // Menu表示
             var p = new NavigationParameters();
-            p.Add(nameof(DailyListViewModel.SelectedDate), DateOnly.Parse("2023/01/01"));
+            p.Add(nameof(DailyListViewModel.SelectedDate), SelectedWorkDate);
             _regionManager.RequestNavigate("ContentRegion", nameof(DailyList), p);
 
         }
