@@ -87,12 +87,15 @@ namespace DailyReportApp.ViewModels
 
             var db = new Database();
             db.SQL = "SELECT "
-                    + "   work_date "
-                    + "   , work_content_name "
+                    + "   MIN(work_date) work_date "
+                    + "   , MIN(work_content_name) work_content_name "
                     + " FROM "
                     + "   uv_daily_reports "
                     + " WHERE "
                     + "   work_date ='" + SelectedDate.ToString("yyyy/MM/dd") + "'"
+                    + " GROUP BY "
+                    + "   daily_report_id "
+                    + "   , work_content_id "
                     ;
             dr = db.ReadAsDataReader();
             if (dr != null)
