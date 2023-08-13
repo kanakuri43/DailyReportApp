@@ -175,6 +175,21 @@ namespace DailyReportApp.ViewModels
             {
                 connection.Open();
 
+                if(ReportId != 0)
+                {
+                    using (SqlCommand command = new SqlCommand("usp_delete_daily_report", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters to SqlCommand
+                        command.Parameters.Add(new SqlParameter("@arg_daily_report_id", ReportId));
+
+                        // Execute the command
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+
                 using (SqlCommand command = new SqlCommand("usp_register_daily_report", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -230,7 +245,7 @@ namespace DailyReportApp.ViewModels
                     ReportDate = DateTime.Parse(dr["work_date"].ToString());
                     AuthorId = (int)dr["author_id"];
                     WorkContentId = (int)dr["work_content_id"];
-                    WorkingHours = (float)(double)dr["working_hours"];
+                    WorkingHours = (float)((double)dr["working_hours"]);    // SQTServerのfloatはC#ではdoubleと認識されるため
                     MachineId = (int)dr["machine_id"];
                     Notes = dr["notes"].ToString();
                 }
@@ -252,7 +267,7 @@ namespace DailyReportApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             ReportId = navigationContext.Parameters.GetValue<int>(nameof(ReportId));
-            ReportId = 8;
+            ReportId = 34;
             ShowReportContents();
         }
 
