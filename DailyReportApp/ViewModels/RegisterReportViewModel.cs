@@ -210,6 +210,34 @@ namespace DailyReportApp.ViewModels
             }
         }
 
+        private void ShowReportContents()
+        {
+            if (ReportId == 0) return;
+
+            var db = new Database();
+            db.SQL = "SELECT "
+                    + "   * "
+                    + " FROM "
+                    + "   daily_reports "
+                    + " WHERE "
+                    + "   daily_report_id =" + ReportId.ToString()
+                    ;
+            SqlDataReader dr = db.ReadAsDataReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    ReportDate = DateTime.Parse(dr["work_date"].ToString());
+                    AuthorId = (int)dr["author_id"];
+                    WorkContentId = (int)dr["work_content_id"];
+                    WorkingHours = (float)(double)dr["working_hours"];
+                    MachineId = (int)dr["machine_id"];
+                    Notes = dr["notes"].ToString();
+                }
+            }
+
+        }
+
         private void DeleteCommandExecute()
         {
 
@@ -223,7 +251,9 @@ namespace DailyReportApp.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-
+            ReportId = navigationContext.Parameters.GetValue<int>(nameof(ReportId));
+            ReportId = 8;
+            ShowReportContents();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
