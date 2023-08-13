@@ -29,6 +29,62 @@ namespace DailyReportApp.ViewModels
         private string _notes = "";
         private ObservableCollection<MultiSelectViewModel> _workers;
 
+        public DelegateCommand RegisterCommand { get; }
+        public DelegateCommand DeleteCommand { get; }
+        public DelegateCommand CancelCommand { get; }
+        public DateTime ReportDate
+        {
+            get { return _reportDate; }
+            set { SetProperty(ref _reportDate, value); }
+        }
+
+        public ObservableCollection<ComboBoxViewModel> Employees
+        {
+            get => _employees;
+            set => SetProperty(ref _employees, value);
+        }
+        public ObservableCollection<ComboBoxViewModel> WorkContents
+        {
+            get => _workContents;
+            set => SetProperty(ref _workContents, value);
+        }
+        public ObservableCollection<ComboBoxViewModel> Machines
+        {
+            get => _machines;
+            set => SetProperty(ref _machines, value);
+        }
+
+        public int AuthorId
+        {
+            get { return _authorId; }
+            set { SetProperty(ref _authorId, value); }
+        }
+        public int WorkContentId
+        {
+            get { return _workContentId; }
+            set { SetProperty(ref _workContentId, value); }
+        }
+        public float WorkingHours
+        {
+            get { return _workingHours; }
+            set { SetProperty(ref _workingHours, value); }
+        }
+        public int MachineId
+        {
+            get { return _machineId; }
+            set { SetProperty(ref _machineId, value); }
+        }
+        public string Notes
+        {
+            get { return _notes; }
+            set { SetProperty(ref _notes, value); }
+        }
+        public ObservableCollection<MultiSelectViewModel> Workers
+        {
+            get { return _workers; }
+            set { SetProperty(ref _workers, value); }
+        }
+
 
 
         public RegisterReportViewModel(IRegionManager regionManager)
@@ -106,69 +162,11 @@ namespace DailyReportApp.ViewModels
                     Machines.Add(new ComboBoxViewModel(int.Parse(dr["machine_id"].ToString()), dr["machine_name"].ToString()));
                 }
             }
-
-
         }
-        public DelegateCommand RegisterCommand { get; }
-        public DelegateCommand DeleteCommand { get; }
-        public DelegateCommand CancelCommand { get; }
-
-        public DateTime ReportDate
-        {
-            get { return _reportDate; }
-            set { SetProperty(ref _reportDate, value); }
-        }
-
-        public ObservableCollection<ComboBoxViewModel> Employees
-        {
-            get => _employees;
-            set => SetProperty(ref _employees, value);
-        }
-        public ObservableCollection<ComboBoxViewModel> WorkContents
-        {
-            get => _workContents;
-            set => SetProperty(ref _workContents, value);
-        }
-        public ObservableCollection<ComboBoxViewModel> Machines
-        {
-            get => _machines;
-            set => SetProperty(ref _machines, value);
-        }
-
-        public int AuthorId
-        {
-            get { return _authorId; }
-            set { SetProperty(ref _authorId, value); }
-        }
-        public int WorkContentId
-        {
-            get { return _workContentId; }
-            set { SetProperty(ref _workContentId, value); }
-        }
-        public float WorkingHours
-        {
-            get { return _workingHours; }
-            set { SetProperty(ref _workingHours, value); }
-        }
-        public int MachineId
-        {
-            get { return _machineId; }
-            set { SetProperty(ref _machineId, value); }
-        }
-        public string Notes
-        {
-            get { return _notes; }
-            set { SetProperty(ref _notes, value); }
-        }
-        public ObservableCollection<MultiSelectViewModel> Workers
-        {
-            get { return _workers; }
-            set { SetProperty(ref _workers, value); }
-        }
-
+ 
         private void RegisterCommandExecute()
         {
-            string connectionString = @"Data Source=172.16.6.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
+            string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
             int[] employeeIds = new int[] { 3, 5, 7 }; // the assignee IDs
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -208,7 +206,6 @@ namespace DailyReportApp.ViewModels
                     command.ExecuteNonQuery();
                 }
             }
-
         }
 
         private void DeleteCommandExecute()
@@ -220,7 +217,6 @@ namespace DailyReportApp.ViewModels
         {
             var p = new NavigationParameters();
             _regionManager.RequestNavigate("ContentRegion", nameof(Dashboard), p);
-
         }
 
     }

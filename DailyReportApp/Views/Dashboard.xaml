@@ -11,13 +11,12 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-
-
-        <TextBlock Text="作業日報"
-                    VerticalAlignment="Center"
-                    FontWeight="Bold"
-                    FontSize="24"
-                    HorizontalAlignment="Center" FontFamily="Arial Black"/>
+        <TextBlock Grid.Row="0"
+                   Text="作業日報"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="24"
+                   HorizontalAlignment="Center" FontFamily="Arial Black"/>
 
         <Grid Grid.Row="1"
               Width="300">
