@@ -18,9 +18,11 @@ namespace DailyReportApp.ViewModels
 
         private ObservableCollection<MonthlyReportListViewModel> _reportList = new ObservableCollection<MonthlyReportListViewModel>();
         private DateTime _selectedDate;
+        private int _selectedReportId;
 
         public DelegateCommand RegisterReportCommand { get; }
         public DelegateCommand CancelCommand { get; }
+        public DelegateCommand ReportListDoubleClickCommand { get; }
         public DateTime SelectedDate
         {
             get { return _selectedDate; }
@@ -31,6 +33,11 @@ namespace DailyReportApp.ViewModels
             get => _reportList;
             set => SetProperty(ref _reportList, value);
         }
+        public int SelectedReportId
+        {
+            get { return _selectedReportId; }
+            set { SetProperty(ref _selectedReportId, value); }
+        }
 
         public DailyListViewModel(IRegionManager regionManager)
         {
@@ -38,12 +45,20 @@ namespace DailyReportApp.ViewModels
 
             RegisterReportCommand = new DelegateCommand(RegisterReportCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
+            ReportListDoubleClickCommand = new DelegateCommand(ReportListDoubleClickCommandExecute);
 
         }
 
         private void RegisterReportCommandExecute()
         {
             var p = new NavigationParameters();
+            _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
+
+        }
+        private void ReportListDoubleClickCommandExecute()
+        {
+            var p = new NavigationParameters();
+            p.Add(nameof(RegisterReportViewModel.ReportId), SelectedReportId);
             _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
 
         }
