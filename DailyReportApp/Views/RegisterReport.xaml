@@ -19,105 +19,109 @@
         <StackPanel Grid.Row="1" 
                         HorizontalAlignment="Center">
 
-            <Grid Width="300">
+            <Grid Width="200">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="130"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="100"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0"
-                           Text="日付"
-                           VerticalAlignment="Center"/>
-                <DatePicker Grid.Row="0" Grid.Column="1"
-                            SelectedDate="{Binding ReportDate}"
-                            VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="0">
+                    <TextBlock Text="日付"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <DatePicker SelectedDate="{Binding ReportDate}"
+                                VerticalAlignment="Center"/>
+                </StackPanel>
 
-                <TextBlock Grid.Row="1" Grid.Column="0"
-                           Text="作成者"
-                           VerticalAlignment="Center"/>
-                <ComboBox  Grid.Row="1" Grid.Column="1"
-                           SelectedValuePath="SelectedValue"
-                           DisplayMemberPath="DisplayMember"
-                           ItemsSource="{Binding Employees}"
-                           SelectedValue="{Binding AuthorId}"
-                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="1">
+                    <TextBlock Text="作成者"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <ComboBox  SelectedValuePath="SelectedValue"
+                               DisplayMemberPath="DisplayMember"
+                               ItemsSource="{Binding Employees}"
+                               SelectedValue="{Binding AuthorId}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
 
-                <TextBlock Grid.Row="2" Grid.Column="0"
-                           Text="作業"
-                           VerticalAlignment="Center"/>
-                <ComboBox  Grid.Row="2" Grid.Column="1"
-                           SelectedValuePath="SelectedValue"
-                           DisplayMemberPath="DisplayMember"
-                           ItemsSource="{Binding WorkContents}"
-                           SelectedValue="{Binding WorkContentId}"
-                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="2">
+                    <TextBlock Text="作業内容"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <ComboBox  SelectedValuePath="SelectedValue"
+                               DisplayMemberPath="DisplayMember"
+                               ItemsSource="{Binding WorkContents}"
+                               SelectedValue="{Binding WorkContentId}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
 
-                <TextBlock Grid.Row="3" Grid.Column="0"
-                           Text="担当"
-                           VerticalAlignment="Center"/>
-                <ListBox   Grid.Row="3" Grid.Column="1"
-                           SelectionMode="Multiple"
-                           SelectedValuePath="Id"
-                           DisplayMemberPath="Name"
-                           ItemsSource="{Binding Workers}"
-                           VerticalAlignment="Center">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="IsSelected" Value="{Binding Selected}" />
-                        </Style>
-                    </ListBox.ItemContainerStyle>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="3">
+                    <TextBlock Text="担当"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <ListBox   SelectionMode="Multiple"
+                               SelectedValuePath="Id"
+                               DisplayMemberPath="Name"
+                               Height="100"
+                               ItemsSource="{Binding Workers}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="IsSelected" Value="{Binding Selected}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
 
-                </ListBox>
+                    </ListBox>
+                </StackPanel>
 
-                <TextBlock Grid.Row="4" Grid.Column="0"
-                           Text="作業時間"
-                           VerticalAlignment="Center"/>
-                <TextBox  Grid.Row="4" Grid.Column="1"
-                          Text="{Binding WorkingHours}"
-                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="4">
+                    <TextBlock Text="作業時間"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <TextBox  Text="{Binding WorkingHours}"
+                              VerticalAlignment="Center"/>
+                </StackPanel>
 
-                <TextBlock Grid.Row="5" Grid.Column="0"
-                           Text="使用機械"
-                           VerticalAlignment="Center"/>
-                <ComboBox  Grid.Row="5" Grid.Column="1"
-                           SelectedValuePath="SelectedValue"
-                           DisplayMemberPath="DisplayMember"
-                           ItemsSource="{Binding Machines}"
-                           SelectedValue="{Binding MachineId}"
-                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="5">
+                    <TextBlock Text="使用機械"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <ComboBox  SelectedValuePath="SelectedValue"
+                               DisplayMemberPath="DisplayMember"
+                               ItemsSource="{Binding Machines}"
+                               SelectedValue="{Binding MachineId}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
 
-                <TextBlock Grid.Row="6" Grid.Column="0"
-                           Text="コメント"
-                           VerticalAlignment="Center"/>
-                <TextBox  Grid.Row="6" Grid.Column="1"
-                          TextWrapping="Wrap"
-                          Text="{Binding Notes}"
-                          AcceptsReturn="True"/>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="6">
+                    <TextBlock Text="コメント"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Center"/>
+                    <TextBox  TextWrapping="Wrap"
+                              Text="{Binding Notes}"
+                              AcceptsReturn="True"/>
+                </StackPanel>
             </Grid>
 
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
                 <Button Content="登録"
-                        Width="100"
-                        FontSize="16"
                         IsDefault="True"
                         Command="{Binding RegisterCommand}" />
                 <Button Content="キャンセル"
-                        Width="100"
-                        FontSize="16"
-                        Margin="10,0,0,0"
-                        IsDefault="True"
                         Command="{Binding CancelCommand}" />
 
             </StackPanel>
