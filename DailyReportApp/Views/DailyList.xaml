@@ -36,10 +36,10 @@
                     Command="{Binding CancelCommand}" />
 
             <ListBox Grid.Row="4"
-                     SelectedValuePath="WorkDate"
-                     DisplayMemberPath="WorkDate" 
+                     SelectedValuePath="ReportId"
+                     DisplayMemberPath="WorkContents" 
                      ItemsSource="{Binding ReportList}" 
-                     SelectedValue="{Binding SelectedWorkDate}" >
+                     SelectedValue="{Binding SelectedReportId}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <prism:InvokeCommandAction 

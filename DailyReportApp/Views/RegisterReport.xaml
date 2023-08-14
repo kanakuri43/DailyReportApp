@@ -112,6 +112,7 @@
                                VerticalAlignment="Center"/>
                     <TextBox  TextWrapping="Wrap"
                               Text="{Binding Notes}"
+                              Height="50"
                               AcceptsReturn="True"/>
                 </StackPanel>
             </Grid>

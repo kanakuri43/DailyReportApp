@@ -80,7 +80,7 @@ namespace DailyReportApp.ViewModels
                 Months.Add(new ComboBoxViewModel(i, i.ToString()));
             }
 
-            ShowMonthlyReport();
+            ShowMonthlyReportList();
         }
 
         private void RegisterReportCommandExecute()
@@ -99,10 +99,10 @@ namespace DailyReportApp.ViewModels
 
         private void YearMonthSelectionChangedExecute()
         {
-            ShowMonthlyReport();
+            ShowMonthlyReportList();
         }
 
-        private void ShowMonthlyReport()
+        private void ShowMonthlyReportList()
         {
             SqlDataReader dr;
 

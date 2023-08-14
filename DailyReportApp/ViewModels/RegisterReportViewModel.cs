@@ -227,17 +227,20 @@ namespace DailyReportApp.ViewModels
 
         private void ShowReportContents()
         {
+            var db = new Database();
+            SqlDataReader dr;
+
             if (ReportId == 0) return;
 
-            var db = new Database();
-            db.SQL = "SELECT "
+            // 日付・作業内容 等
+            db.SQL = "SELECT TOP 1 "
                     + "   * "
                     + " FROM "
                     + "   daily_reports "
                     + " WHERE "
                     + "   daily_report_id =" + ReportId.ToString()
                     ;
-            SqlDataReader dr = db.ReadAsDataReader();
+            dr = db.ReadAsDataReader();
             if (dr == null) return;
 
             while (dr.Read())
@@ -249,6 +252,30 @@ namespace DailyReportApp.ViewModels
                 MachineId = (int)dr["machine_id"];
                 Notes = dr["notes"].ToString();
             }
+            dr.Close();
+
+            // 作業担当者
+            db.SQL = "SELECT "
+                    + "   * "
+                    + " FROM "
+                    + "   daily_report_workers "
+                    + " WHERE "
+                    + "   daily_report_id =" + ReportId.ToString()
+                    ;
+            dr = db.ReadAsDataReader();
+            if (dr == null) return;
+
+            while (dr.Read())
+            {
+                foreach(var worker in Workers)
+                {
+                    if (worker.Id == (int)dr["employee_id"])
+                    {
+                        worker.Selected = true;
+                    }
+                }
+            }
+            dr.Close();
 
         }
 
@@ -266,7 +293,6 @@ namespace DailyReportApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             ReportId = navigationContext.Parameters.GetValue<int>(nameof(ReportId));
-            ReportId = 34;
             ShowReportContents();
         }
 

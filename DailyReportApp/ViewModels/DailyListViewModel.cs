@@ -16,7 +16,7 @@ namespace DailyReportApp.ViewModels
     {
         private readonly IRegionManager _regionManager;
 
-        private ObservableCollection<MonthlyReportListViewModel> _reportList = new ObservableCollection<MonthlyReportListViewModel>();
+        private ObservableCollection<DailyReportListViewModel> _reportList = new ObservableCollection<DailyReportListViewModel>();
         private DateTime _selectedDate;
         private int _selectedReportId;
 
@@ -28,7 +28,7 @@ namespace DailyReportApp.ViewModels
             get { return _selectedDate; }
             set { SetProperty(ref _selectedDate, value); }
         }
-        public ObservableCollection<MonthlyReportListViewModel> ReportList
+        public ObservableCollection<DailyReportListViewModel> ReportList
         {
             get => _reportList;
             set => SetProperty(ref _reportList, value);
@@ -66,7 +66,7 @@ namespace DailyReportApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             SelectedDate = navigationContext.Parameters.GetValue<DateTime>(nameof(SelectedDate));
-            ShowMonthlyReport();
+            ShowDailyReportList();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -79,7 +79,7 @@ namespace DailyReportApp.ViewModels
 
         }
 
-        private void ShowMonthlyReport()
+        private void ShowDailyReportList()
         {
             SqlDataReader dr;
 
@@ -87,7 +87,7 @@ namespace DailyReportApp.ViewModels
 
             var db = new Database();
             db.SQL = "SELECT "
-                    + "   MIN(work_date) work_date "
+                    + "   daily_report_id "
                     + "   , MIN(work_content_name) work_content_name "
                     + " FROM "
                     + "   uv_daily_reports "
@@ -102,7 +102,7 @@ namespace DailyReportApp.ViewModels
             {
                 while (dr.Read())
                 {
-                    ReportList.Add(new MonthlyReportListViewModel(DateTime.Parse(dr["work_date"].ToString()), dr["work_content_name"].ToString()));
+                    ReportList.Add(new DailyReportListViewModel((int)dr["daily_report_id"], dr["work_content_name"].ToString()));
 
                 }
             }
