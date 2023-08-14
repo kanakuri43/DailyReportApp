@@ -124,6 +124,8 @@
                         Command="{Binding RegisterCommand}" />
                 <Button Content="キャンセル"
                         Command="{Binding CancelCommand}" />
+                <Button Content="削除"
+                        Command="{Binding DeleteCommand}" />
 
             </StackPanel>
 

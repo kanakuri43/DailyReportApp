@@ -166,16 +166,15 @@ namespace DailyReportApp.ViewModels
                 }
             }
         }
- 
+
         private void RegisterCommandExecute()
         {
-            string connectionString = @"Data Source=192.168.3.11;Initial Catalog=daily_report_db;User ID=sa;Password=Sapassword1;Encrypt=false"; // your connection string here
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var db = new Database();
+            using (SqlConnection connection = new SqlConnection(db.ConnectionString))
             {
                 connection.Open();
 
-                if(ReportId != 0)
+                if (ReportId != 0)
                 {
                     using (SqlCommand command = new SqlCommand("usp_delete_daily_report", connection))
                     {
@@ -267,7 +266,7 @@ namespace DailyReportApp.ViewModels
 
             while (dr.Read())
             {
-                foreach(var worker in Workers)
+                foreach (var worker in Workers)
                 {
                     if (worker.Id == (int)dr["employee_id"])
                     {
@@ -281,7 +280,26 @@ namespace DailyReportApp.ViewModels
 
         private void DeleteCommandExecute()
         {
+            var db = new Database();
+            using (SqlConnection connection = new SqlConnection(db.ConnectionString))
+            {
+                connection.Open();
 
+                if (ReportId != 0)
+                {
+                    using (SqlCommand command = new SqlCommand("usp_delete_daily_report", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters to SqlCommand
+                        command.Parameters.Add(new SqlParameter("@arg_daily_report_id", ReportId));
+
+                        // Execute the command
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+            }
         }
 
         private void CancelCommandExecute()
