@@ -24,6 +24,7 @@ namespace DailyReportApp
             containerRegistry.RegisterForNavigation<FindReport>();
             containerRegistry.RegisterForNavigation<DailyList>();
             containerRegistry.RegisterForNavigation<MasterMaintenanceMenu>();
+            containerRegistry.RegisterForNavigation<MasterList>();
 
         }
 
