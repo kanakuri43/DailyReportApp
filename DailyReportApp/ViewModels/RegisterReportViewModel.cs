@@ -245,7 +245,7 @@ namespace DailyReportApp.ViewModels
                 ReportDate = DateTime.Parse(dr["work_date"].ToString());
                 AuthorId = (int)dr["author_id"];
                 WorkContentId = (int)dr["work_content_id"];
-                WorkingHours = (float)((double)dr["working_hours"]);    // SQTServerのfloatはC#ではdoubleと認識されるため
+                WorkingHours = (float)((double)dr["working_hours"]);    // SQLServerのfloatはC#ではdoubleと認識されるため
                 MachineId = (int)dr["machine_id"];
                 Notes = dr["notes"].ToString();
             }

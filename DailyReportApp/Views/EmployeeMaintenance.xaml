@@ -9,7 +9,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                    Text="マスタ保守" 
+                    Text="社員マスタ保守" 
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"
@@ -39,10 +39,10 @@
                 <Button Content="登録"
                             IsDefault="True"
                             Command="{Binding RegisterCommand}" />
-                <Button Content="キャンセル"
-                            Command="{Binding CancelCommand}" />
                 <Button Content="削除"
                             Command="{Binding DeleteCommand}" />
+                <Button Content="キャンセル"
+                            Command="{Binding CancelCommand}" />
             </StackPanel>
 
         </Grid>
