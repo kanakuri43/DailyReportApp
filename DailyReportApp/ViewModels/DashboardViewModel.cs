@@ -131,6 +131,7 @@ namespace DailyReportApp.ViewModels
                 }
             }
         }
+
         private void MasterMaintenanceCommandExecute()
         {
             var p = new NavigationParameters();

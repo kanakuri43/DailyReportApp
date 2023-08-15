@@ -90,8 +90,6 @@ namespace DailyReportApp.ViewModels
             set { SetProperty(ref _workers, value); }
         }
 
-
-
         public RegisterReportViewModel(IRegionManager regionManager)
         {
 

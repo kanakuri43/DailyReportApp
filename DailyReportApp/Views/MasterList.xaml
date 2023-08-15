@@ -8,7 +8,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                     Text="マスタ保守" 
@@ -16,17 +16,15 @@
                     FontWeight="Bold"
                     FontSize="24"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
-        <ListBox Grid.Row="2"
-                     SelectedValuePath="WorkDate"
-                     DisplayMemberPath="WorkDate" 
-                     ItemsSource="{Binding ReportList}" 
-                     SelectedValue="{Binding SelectedWorkDate}" >
+        <ListBox Grid.Row="1"
+                     SelectedValuePath="SelectedValue"
+                     DisplayMemberPath="DisplayMember" 
+                     ItemsSource="{Binding FlexMastertList}" 
+                     SelectedValue="{Binding SelectedId}" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <prism:InvokeCommandAction 
-                            Command="{Binding Path=DataContext.ReportListDoubleClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
-
-
+                            Command="{Binding Path=DataContext.MouseDoubleClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
