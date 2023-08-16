@@ -29,6 +29,9 @@ namespace DailyReportApp.ViewModels
         public DelegateCommand PrintReportCommand { get; }
         public DelegateCommand CancelCommand { get; }
         public DelegateCommand ReportListDoubleClickCommand { get; }
+        public DelegateCommand BeforeCommand { get; }
+        public DelegateCommand AfterCommand { get; }
+
         public DateTime SelectedDate
         {
             get { return _selectedDate; }
@@ -53,6 +56,8 @@ namespace DailyReportApp.ViewModels
             PrintReportCommand = new DelegateCommand(PrintReportCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
             ReportListDoubleClickCommand = new DelegateCommand(ReportListDoubleClickCommandExecute);
+            BeforeCommand = new DelegateCommand(BeforeCommandExecute);
+            AfterCommand = new DelegateCommand(AfterCommandExecute);
 
         }
 
@@ -95,6 +100,20 @@ namespace DailyReportApp.ViewModels
             var p = new NavigationParameters();
             p.Add(nameof(RegisterReportViewModel.ReportId), SelectedReportId);
             _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
+
+        }
+
+        private void BeforeCommandExecute()
+        {
+            SelectedDate = SelectedDate.AddDays(-1);
+            ShowDailyReportList();
+
+        }
+
+        private void AfterCommandExecute()
+        {
+            SelectedDate = SelectedDate.AddDays(1);
+            ShowDailyReportList();
 
         }
 
