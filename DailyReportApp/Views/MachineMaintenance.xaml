@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="DailyReportApp.Views.MachineMaintenance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid Background="White" Width="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                    Text="機械マスタ保守" 
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    FontSize="24"
+                    HorizontalAlignment="Center" FontFamily="Arial Black"/>
+        <Grid Width="200"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="0">
+                <TextBlock  Text="名前"
+                            Margin="0,0,0,2"
+                            VerticalAlignment="Center"/>
+                <TextBox    Text="{Binding MachineName}"
+                            VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                            Grid.Row="6">
+                <Button Content="登録"
+                            IsDefault="True"
+                            Command="{Binding RegisterCommand}" />
+                <Button Content="削除"
+                            Command="{Binding DeleteCommand}" />
+                <Button Content="キャンセル"
+                            Command="{Binding CancelCommand}" />
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

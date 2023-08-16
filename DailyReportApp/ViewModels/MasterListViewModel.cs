@@ -20,6 +20,7 @@ namespace DailyReportApp.ViewModels
         private int _masterType;
 
         public DelegateCommand MouseDoubleClickCommand { get; }
+        public DelegateCommand AddCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
         public ObservableCollection<ComboBoxViewModel> FlexMastertList
@@ -42,6 +43,7 @@ namespace DailyReportApp.ViewModels
         {
             _regionManager = regionManager;
             MouseDoubleClickCommand = new DelegateCommand(MouseDoubleClickCommandExecute);
+            AddCommand = new DelegateCommand(AddCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
 
             ShowMasterList();
@@ -110,17 +112,38 @@ namespace DailyReportApp.ViewModels
                     _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
                     break;
                 case (int)MasterType.WorkContents:
-                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
-                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    p.Add(nameof(WorkContentMaintenanceViewModel.WorkContentId), SelectedId);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(WorkContentMaintenance), p);
                     break;
                 case (int)MasterType.Machines:
-                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
-                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    p.Add(nameof(MachineMaintenanceViewModel.MachineId), SelectedId);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(MachineMaintenance), p);
                     break;
 
             }
 
         }
+        private void AddCommandExecute()
+        {
+            var p = new NavigationParameters();
+            switch (CurrentMasterType)
+            {
+                case (int)MasterType.Employees:
+                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), 0);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    break;
+                case (int)MasterType.WorkContents:
+                    p.Add(nameof(WorkContentMaintenanceViewModel.WorkContentId), 0);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(WorkContentMaintenance), p);
+                    break;
+                case (int)MasterType.Machines:
+                    p.Add(nameof(MachineMaintenanceViewModel.MachineId), 0);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(MachineMaintenance), p);
+                    break;
+
+            }
+        }
+
         private void CancelCommandExecute()
         {
             var p = new NavigationParameters();

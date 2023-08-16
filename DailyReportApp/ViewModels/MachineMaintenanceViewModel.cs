@@ -8,32 +8,31 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using static Azure.Core.HttpHeader;
 
 namespace DailyReportApp.ViewModels
 {
-    public class EmployeeMaintenanceViewModel : BindableBase, INavigationAware
+    public class MachineMaintenanceViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
-        private int _employeeId;
-        private string _employeeName;
+        private int _machineId;
+        private string _machineName;
 
         public DelegateCommand RegisterCommand { get; }
         public DelegateCommand DeleteCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
-        public int EmployeeId
+        public int MachineId
         {
-            get { return _employeeId; }
-            set { SetProperty(ref _employeeId, value); }
+            get { return _machineId; }
+            set { SetProperty(ref _machineId, value); }
         }
-        public string EmployeeName
+        public string MachineName
         {
-            get { return _employeeName; }
-            set { SetProperty(ref _employeeName, value); }
+            get { return _machineName; }
+            set { SetProperty(ref _machineName, value); }
         }
 
-        public EmployeeMaintenanceViewModel(IRegionManager regionManager)
+        public MachineMaintenanceViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
 
@@ -49,13 +48,13 @@ namespace DailyReportApp.ViewModels
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("usp_register_employee", connection))
+                using (SqlCommand command = new SqlCommand("usp_register_machine", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
                     // Add parameters to SqlCommand
-                    command.Parameters.Add(new SqlParameter("@arg_employee_id", EmployeeId));
-                    command.Parameters.Add(new SqlParameter("@arg_employee_name", EmployeeName));
+                    command.Parameters.Add(new SqlParameter("@arg_machine_id", MachineId));
+                    command.Parameters.Add(new SqlParameter("@arg_machine_name", MachineName));
 
                     // Execute the command
                     command.ExecuteNonQuery();
@@ -70,12 +69,12 @@ namespace DailyReportApp.ViewModels
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("usp_delete_employee", connection))
+                using (SqlCommand command = new SqlCommand("usp_delete_machine", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
                     // Add parameters to SqlCommand
-                    command.Parameters.Add(new SqlParameter("@arg_employee_id", EmployeeId));
+                    command.Parameters.Add(new SqlParameter("@arg_machine_id", MachineId));
 
                     // Execute the command
                     command.ExecuteNonQuery();
@@ -83,39 +82,39 @@ namespace DailyReportApp.ViewModels
             }
         }
 
-        private void CancelCommandExecute()
-        {
-            var p = new NavigationParameters();
-            p.Add(nameof(MasterListViewModel.CurrentMasterType), MasterType.Employees);
-            _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
-        }
-
-        private void ShowEmployeeInfo()
+        private void ShowMachineInfo()
         {
             var db = new Database();
             SqlDataReader dr;
 
-            if (EmployeeId == 0) return;
+            if (MachineId == 0) return;
 
             // 日付・作業内容 等
             db.SQL = "SELECT TOP 1 "
                     + "   * "
                     + " FROM "
-                    + "   employees "
+                    + "   machines "
                     + " WHERE "
                     + "   state = 0 "
-                    + "   AND employee_id =" + EmployeeId.ToString()
+                    + "   AND machine_id =" + MachineId.ToString()
                     ;
             dr = db.ReadAsDataReader();
             if (dr == null) return;
 
             while (dr.Read())
             {
-                EmployeeId = (int)dr["employee_id"];
-                EmployeeName = dr["employee_name"].ToString();
+                MachineId = (int)dr["machine_id"];
+                MachineName = dr["machine_name"].ToString();
             }
             dr.Close();
 
+        }
+
+        private void CancelCommandExecute()
+        {
+            var p = new NavigationParameters();
+            p.Add(nameof(MasterListViewModel.CurrentMasterType), MasterType.Machines);
+            _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -130,8 +129,8 @@ namespace DailyReportApp.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            EmployeeId = navigationContext.Parameters.GetValue<int>(nameof(EmployeeId));
-            ShowEmployeeInfo();
+            MachineId = navigationContext.Parameters.GetValue<int>(nameof(MachineId));
+            ShowMachineInfo();
         }
     }
 }
