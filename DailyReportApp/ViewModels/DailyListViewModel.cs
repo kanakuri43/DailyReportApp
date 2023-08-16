@@ -8,7 +8,12 @@ using DailyReportApp.Views;
 using System.Collections.ObjectModel;
 using DailyReportApp.Models;
 using Microsoft.Data.SqlClient;
-
+using System.Windows.Documents;
+using System.Windows.Markup;
+using System.IO.Packaging;
+using System.IO;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
 
 namespace DailyReportApp.ViewModels
 {
@@ -21,6 +26,7 @@ namespace DailyReportApp.ViewModels
         private int _selectedReportId;
 
         public DelegateCommand RegisterReportCommand { get; }
+        public DelegateCommand PrintReportCommand { get; }
         public DelegateCommand CancelCommand { get; }
         public DelegateCommand ReportListDoubleClickCommand { get; }
         public DateTime SelectedDate
@@ -44,6 +50,7 @@ namespace DailyReportApp.ViewModels
             _regionManager = regionManager;
 
             RegisterReportCommand = new DelegateCommand(RegisterReportCommandExecute);
+            PrintReportCommand = new DelegateCommand(PrintReportCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
             ReportListDoubleClickCommand = new DelegateCommand(ReportListDoubleClickCommandExecute);
 
@@ -55,6 +62,34 @@ namespace DailyReportApp.ViewModels
             _regionManager.RequestNavigate("ContentRegion", nameof(RegisterReport), p);
 
         }
+        private void PrintReportCommandExecute()
+        {
+            ReportPaper reportPaper = new ReportPaper();
+            FixedPage fixedPage = new FixedPage();
+            fixedPage.Children.Add(reportPaper);
+
+            // A4縦
+            fixedPage.Width = 8.27 * 96;
+            fixedPage.Height = 11.69 * 96; 
+            PageContent pc = new PageContent();
+            ((IAddChild)pc).AddChild(fixedPage);
+            FixedDocument fixedDocument = new FixedDocument();
+            fixedDocument.Pages.Add(pc);
+
+            using (Package p = Package.Open(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), FileMode.Create))
+            {
+                using (XpsDocument d = new XpsDocument(p))
+                {
+                    XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(d);
+                    writer.Write(fixedDocument.DocumentPaginator);
+                }
+            }
+
+            PdfSharp.Xps.XpsConverter.Convert(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), string.Format(@"C:\tmp\{0}.pdf", SelectedDate.ToString("yyyyMMdd")), 0);
+            File.Delete(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")));
+
+        }
+
         private void ReportListDoubleClickCommandExecute()
         {
             var p = new NavigationParameters();
