@@ -8,7 +8,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                     Text="マスタ保守" 
@@ -28,6 +28,10 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
+        <Button Grid.Row="2"
+                    Content="戻る"
+                    FontSize="16"
+                    Command="{Binding CancelCommand}" />
 
     </Grid>
 </UserControl>

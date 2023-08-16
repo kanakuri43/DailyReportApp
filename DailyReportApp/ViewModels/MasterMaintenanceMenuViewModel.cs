@@ -36,16 +36,19 @@ namespace DailyReportApp.ViewModels
         private void WorkContentsCommandExecute()
         {
             var p = new NavigationParameters();
+            p.Add(nameof(MasterListViewModel.CurrentMasterType), MasterType.WorkContents);
             _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
         }
         private void EmployeesCommandExecute()
         {
             var p = new NavigationParameters();
+            p.Add(nameof(MasterListViewModel.CurrentMasterType), MasterType.Employees);
             _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
         }
         private void MachinesCommandExecute()
         {
             var p = new NavigationParameters();
+            p.Add(nameof(MasterListViewModel.CurrentMasterType), MasterType.Machines);
             _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
         }
         private void CancelCommandExecute()
