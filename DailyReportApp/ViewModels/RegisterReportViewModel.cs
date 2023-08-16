@@ -99,11 +99,9 @@ namespace DailyReportApp.ViewModels
             DeleteCommand = new DelegateCommand(DeleteCommandExecute);
             CancelCommand = new DelegateCommand(CancelCommandExecute);
 
-            ReportDate = DateTime.Today;
-
+            InitializeScreen();
 
             SqlDataReader dr;
-
             var dbEmployees = new Database();
             dbEmployees.SQL = "SELECT "
                     + "  employee_id "
@@ -220,6 +218,8 @@ namespace DailyReportApp.ViewModels
                     command.ExecuteNonQuery();
                 }
             }
+            InitializeScreen();
+
         }
 
         private void ShowReportContents()
@@ -298,6 +298,17 @@ namespace DailyReportApp.ViewModels
 
                 }
             }
+        }
+
+        private void InitializeScreen()
+        {
+            ReportDate = DateTime.Today;
+            AuthorId = 0;
+            WorkContentId = 0;
+            WorkingHours = 0;    
+            MachineId = 0;
+            Notes = "";
+
         }
 
         private void CancelCommandExecute()
