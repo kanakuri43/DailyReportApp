@@ -34,7 +34,7 @@
                     FontSize="16"
                     Command="{Binding AddCommand}" />
         <Button Grid.Row="3"
-                    Content="戻る"
+                    Content="マスタ保守メニューへ戻る"
                     FontSize="16"
                     Command="{Binding CancelCommand}" />
 

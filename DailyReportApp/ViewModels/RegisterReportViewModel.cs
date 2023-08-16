@@ -298,6 +298,7 @@ namespace DailyReportApp.ViewModels
 
                 }
             }
+            InitializeScreen();
         }
 
         private void InitializeScreen()

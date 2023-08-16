@@ -35,7 +35,7 @@
                     FontSize="16"
                     Command="{Binding PrintReportCommand}" />
             <Button Grid.Row="2"
-                    Content="戻る"
+                    Content="TOPへ戻る"
                     FontSize="16"
                     Command="{Binding CancelCommand}" />
             <StackPanel Grid.Row="3"

@@ -40,7 +40,7 @@
                     FontSize="16"
                     Command="{Binding MachinesCommand}" />
             <Button Grid.Row="4"
-                    Content="戻る"
+                    Content="TOPへ戻る"
                     FontSize="16"
                     Command="{Binding CancelCommand}" />
         </Grid>
