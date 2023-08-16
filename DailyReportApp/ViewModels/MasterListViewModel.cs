@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace DailyReportApp.ViewModels
 {
-	public class MasterListViewModel : BindableBase, INavigationAware
+    public class MasterListViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager _regionManager;
 
@@ -103,8 +103,23 @@ namespace DailyReportApp.ViewModels
         private void MouseDoubleClickCommandExecute()
         {
             var p = new NavigationParameters();
-            p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
-            _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+            switch (CurrentMasterType)
+            {
+                case (int)MasterType.Employees:
+                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    break;
+                case (int)MasterType.WorkContents:
+                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    break;
+                case (int)MasterType.Machines:
+                    p.Add(nameof(EmployeeMaintenanceViewModel.EmployeeId), SelectedId);
+                    _regionManager.RequestNavigate("ContentRegion", nameof(EmployeeMaintenance), p);
+                    break;
+
+            }
+
         }
         private void CancelCommandExecute()
         {

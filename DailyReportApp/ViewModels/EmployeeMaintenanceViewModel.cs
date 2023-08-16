@@ -88,7 +88,7 @@ namespace DailyReportApp.ViewModels
             _regionManager.RequestNavigate("ContentRegion", nameof(MasterList), p);
         }
 
-        private void ShowEmployeeContents()
+        private void ShowEmployeeInfo()
         {
             var db = new Database();
             SqlDataReader dr;
@@ -129,7 +129,7 @@ namespace DailyReportApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             EmployeeId = navigationContext.Parameters.GetValue<int>(nameof(EmployeeId));
-            ShowEmployeeContents();
+            ShowEmployeeInfo();
         }
     }
 }
