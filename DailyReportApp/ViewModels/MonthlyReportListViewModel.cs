@@ -17,5 +17,6 @@ namespace DailyReportApp.ViewModels
 
         public DateTime WorkDate { get; }
         public string WorkContents { get; }
+        public string FormattedWorkDate => WorkDate.ToString("MM/dd (ddd)");
     }
 }

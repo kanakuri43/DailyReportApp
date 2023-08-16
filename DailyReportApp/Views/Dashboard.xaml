@@ -76,7 +76,7 @@
             </StackPanel>
             <ListBox Grid.Row="4"
                      SelectedValuePath="WorkDate"
-                     DisplayMemberPath="WorkDate" 
+                     DisplayMemberPath="FormattedWorkDate"
                      ItemsSource="{Binding ReportList}" 
                      SelectedValue="{Binding SelectedWorkDate}" >
                 <i:Interaction.Triggers>
