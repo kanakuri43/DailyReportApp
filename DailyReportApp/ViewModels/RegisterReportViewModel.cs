@@ -303,7 +303,15 @@ namespace DailyReportApp.ViewModels
         private void CancelCommandExecute()
         {
             var p = new NavigationParameters();
-            _regionManager.RequestNavigate("ContentRegion", nameof(Dashboard), p);
+            if (ReportId == 0)
+            {
+                _regionManager.RequestNavigate("ContentRegion", nameof(Dashboard), p);
+            }
+            else
+            {
+                p.Add(nameof(DailyListViewModel.SelectedDate), ReportDate);
+                _regionManager.RequestNavigate("ContentRegion", nameof(DailyList), p);
+            }
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
