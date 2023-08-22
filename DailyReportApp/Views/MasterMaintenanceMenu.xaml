@@ -10,7 +10,7 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                    Text="マスタ保守" 
+                    Text="設定" 
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"

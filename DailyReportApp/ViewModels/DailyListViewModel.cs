@@ -81,7 +81,7 @@ namespace DailyReportApp.ViewModels
             FixedDocument fixedDocument = new FixedDocument();
             fixedDocument.Pages.Add(pc);
 
-            using (Package p = Package.Open(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), FileMode.Create))
+            using (Package p = Package.Open(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), FileMode.Create))
             {
                 using (XpsDocument d = new XpsDocument(p))
                 {
@@ -90,8 +90,8 @@ namespace DailyReportApp.ViewModels
                 }
             }
 
-            PdfSharp.Xps.XpsConverter.Convert(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), string.Format(@"C:\tmp\{0}.pdf", SelectedDate.ToString("yyyyMMdd")), 0);
-            File.Delete(string.Format(@"C:\tmp\{0}.xps", SelectedDate.ToString("yyyyMMdd")));
+            PdfSharp.Xps.XpsConverter.Convert(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), string.Format(@"C:\temp\{0}.pdf", SelectedDate.ToString("yyyyMMdd")), 0);
+            File.Delete(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")));
 
         }
 

@@ -7,6 +7,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         ResizeMode="NoResize" 
         WindowTransitionsEnabled="False"
+        Title="作業日報"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
