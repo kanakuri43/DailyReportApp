@@ -73,7 +73,8 @@
                                Height="100"
                                ItemsSource="{Binding Workers}">
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem"
+                               BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" >
                             <Setter Property="IsSelected" Value="{Binding Selected}" />
                         </Style>
                     </ListBox.ItemContainerStyle>
