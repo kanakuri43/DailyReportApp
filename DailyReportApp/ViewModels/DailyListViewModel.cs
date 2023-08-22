@@ -14,6 +14,7 @@ using System.IO.Packaging;
 using System.IO;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
+using System.Diagnostics;
 
 namespace DailyReportApp.ViewModels
 {
@@ -81,7 +82,10 @@ namespace DailyReportApp.ViewModels
             FixedDocument fixedDocument = new FixedDocument();
             fixedDocument.Pages.Add(pc);
 
-            using (Package p = Package.Open(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), FileMode.Create))
+            string outputDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "pdf";
+            string xpsFileName = string.Format(outputDirectory + @"\{0}.xps", SelectedDate.ToString("yyyyMMdd"));
+            string pdfFileName = string.Format(outputDirectory + @"\{0}.pdf", SelectedDate.ToString("yyyyMMdd"));
+            using (Package p = Package.Open(xpsFileName, FileMode.Create))
             {
                 using (XpsDocument d = new XpsDocument(p))
                 {
@@ -90,9 +94,16 @@ namespace DailyReportApp.ViewModels
                 }
             }
 
-            PdfSharp.Xps.XpsConverter.Convert(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")), string.Format(@"C:\temp\{0}.pdf", SelectedDate.ToString("yyyyMMdd")), 0);
-            File.Delete(string.Format(@"C:\temp\{0}.xps", SelectedDate.ToString("yyyyMMdd")));
+            PdfSharp.Xps.XpsConverter.Convert(xpsFileName, pdfFileName, 0);
+            File.Delete(xpsFileName);
 
+            // 関連付けされたソフトで開く
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = pdfFileName,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void ReportListDoubleClickCommandExecute()
