@@ -8,7 +8,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
-            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -21,24 +20,77 @@
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0"
-                    Content="日報入力"
-                    FontSize="16"
-                    Command="{Binding RegisterReportCommand}" />
-            <Button Grid.Row="1"
-                    Content="印刷"
-                    FontSize="16"
-                    Command="{Binding PrintReportCommand}" />
-            <Button Grid.Row="2"
-                    Content="TOPへ戻る"
-                    FontSize="16"
-                    Command="{Binding CancelCommand}" />
-            <StackPanel Grid.Row="3"
+            <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    >
+                <Button Width="40"
+                    Margin="0,0,10,0"
+                    Command="{Binding RegisterReportCommand}" >
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M6.0003,-0.000199999999999534L6.0003,5.9998 0.000300000000000189,5.9998 0.000300000000000189,9.9998 6.0003,9.9998 6.0003,15.9998 10.0003,15.9998 10.0003,9.9998 16.0003,9.9998 16.0003,5.9998 10.0003,5.9998 10.0003,-0.000199999999999534z" />
+                                            <GeometryDrawing Brush="#FF388934" Geometry="F1M15,9L9,9 9,15 7,15 7,9 1,9 1,7 7,7 7,1 9,1 9,7 15,7z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                </Button>
+                <Button Width="40"
+                    Margin="0,0,10,0"
+                    Command="{Binding PrintReportCommand}" >
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M15.2686,6.73C14.7906,6.252,14.1786,6,13.4996,6L12.9996,6 12.9996,0 2.9996,0 2.9996,6 2.4996,6C1.8206,6 1.2076,6.252 0.730599999999999,6.73 0.252599999999999,7.208 -0.000400000000000844,7.82 -0.000400000000000844,8.5L-0.000400000000000844,14 2.9996,14 2.9996,16 12.9996,16 12.9996,14 15.9996,14 15.9996,8.5C15.9996,7.822,15.7476,7.21,15.2686,6.73" />
+                                            <GeometryDrawing Brush="#FFEFEFF0" Geometry="F1M5,14L11,14 11,12 5,12z M11,2L5,2 5,7 11,7z M14,8.5L14,12 12,12 12,11 4,11 4,12 2,12 2,8.5C2,8.354 2.047,8.234 2.141,8.141 2.234,8.047 2.354,8 2.5,8L13.5,8C13.646,8 13.766,8.047 13.859,8.141 13.953,8.234 14,8.354 14,8.5" />
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M11,12L5,12 5,14 11,14z M5,7L11,7 11,2 5,2z M3,10L4,10 4,9 3,9z M14,8.5C14,8.354 13.953,8.234 13.859,8.141 13.766,8.047 13.646,8 13.5,8L2.5,8C2.354,8 2.234,8.047 2.141,8.141 2.047,8.234 2,8.354 2,8.5L2,12 4,12 4,11 12,11 12,12 14,12z M15,13L12,13 12,15 4,15 4,13 1,13 1,8.5C1,8.083 1.146,7.729 1.437,7.437 1.729,7.146 2.083,7 2.5,7L4,7 4,1 12,1 12,7 13.5,7C13.916,7 14.271,7.146 14.563,7.437 14.854,7.729 15,8.083 15,8.5z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                </Button>
+                <Button Width="40"
+                    Margin="0,0,10,0"
+                    Command="{Binding CancelCommand}" >
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M7.8786,-0.000199999999999534L-0.000399999999999956,7.8798 -0.000399999999999956,9.4138 0.9996,10.4138 0.9996,15.9998 15.0006,15.9998 15.0006,10.4138 16.0006,9.4138 16.0006,7.8798 8.1206,-0.000199999999999534z" />
+                                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,14L10,14 10,9 6,9 6,14 3,14 3,7.707 8,2.707 13,7.707z" />
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M0.6462,8.6461L1.3532,9.3531 2.0002,8.7071 2.0002,15.0001 7.0002,15.0001 7.0002,10.0001 9.0002,10.0001 9.0002,15.0001 14.0002,15.0001 14.0002,8.7071 14.6462,9.3531 15.3532,8.6461 8.0002,1.2931z M3.0002,7.7071L8.0002,2.7071 12.9992,7.7071 12.9992,14.0001 10.0002,14.0001 10.0002,9.0001 6.0002,9.0001 6.0002,14.0001 3.0002,14.0001z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2"
                         Orientation="Horizontal">
                 <Button Content="前日"
                         Command="{Binding BeforeCommand}" />
@@ -47,7 +99,7 @@
 
             </StackPanel>
 
-            <ListBox Grid.Row="4"
+            <ListBox Grid.Row="3"
                      SelectedValuePath="ReportId"
                      DisplayMemberPath="WorkContents" 
                      ItemsSource="{Binding ReportList}" 

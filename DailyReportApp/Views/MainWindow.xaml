@@ -10,6 +10,9 @@
         Title="作業日報"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <ToolBar>
+            
+        </ToolBar>
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
     </Grid>
 </mah:MetroWindow>

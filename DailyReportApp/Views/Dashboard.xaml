@@ -7,12 +7,13 @@
     <Grid Background="White" Width="250">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="40"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     >
@@ -79,7 +80,6 @@
             </Button>
 
         </StackPanel>
-
         <StackPanel Grid.Row="3"
                         Height="30"
                         Orientation="Horizontal">
