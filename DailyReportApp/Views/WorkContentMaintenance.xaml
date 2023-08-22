@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid Background="White" Width="300">
+    <Grid Background="White" Width="250">
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
@@ -14,8 +14,7 @@
                     FontWeight="Bold"
                     FontSize="24"
                     HorizontalAlignment="Center" FontFamily="Arial Black"/>
-        <Grid Width="200"
-              Grid.Row="1">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
