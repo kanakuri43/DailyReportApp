@@ -18,6 +18,7 @@ namespace DailyReportApp.ViewModels
         private ObservableCollection<ComboBoxViewModel> _flexMasterList = new ObservableCollection<ComboBoxViewModel>();
         private int _selectedId;
         private int _masterType;
+        private string _masterName;
 
         public DelegateCommand MouseDoubleClickCommand { get; }
         public DelegateCommand AddCommand { get; }
@@ -37,6 +38,11 @@ namespace DailyReportApp.ViewModels
         {
             get { return _masterType; }
             set { SetProperty(ref _masterType, value); }
+        }
+        public string CurrentMasterName
+        {
+            get { return _masterName; }
+            set { SetProperty(ref _masterName, value); }
         }
 
         public MasterListViewModel(IRegionManager regionManager)
@@ -68,6 +74,7 @@ namespace DailyReportApp.ViewModels
                             + "   state = 0 "
                             + " ORDER BY "
                             + "   employee_id ";
+                    CurrentMasterName = "社員マスタ";
                     break;
                 case (int)MasterType.WorkContents:
                     db.SQL = "SELECT "
@@ -79,6 +86,7 @@ namespace DailyReportApp.ViewModels
                             + "   state = 0 "
                             + " ORDER BY "
                             + "   work_content_id ";
+                    CurrentMasterName = "作業マスタ";
                     break;
                 case (int)MasterType.Machines:
                     db.SQL = "SELECT "
@@ -90,6 +98,7 @@ namespace DailyReportApp.ViewModels
                             + "   state = 0 "
                             + " ORDER BY "
                             + "   machine_id ";
+                    CurrentMasterName = "機械マスタ";
                     break;
             }
             dr = db.ReadAsDataReader();

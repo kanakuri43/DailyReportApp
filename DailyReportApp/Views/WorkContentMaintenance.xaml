@@ -9,7 +9,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                    Text="作業マスタ保守" 
+                    Text="作業マスタ" 
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"

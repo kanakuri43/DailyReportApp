@@ -12,7 +12,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                    Text="マスタ保守" 
+                    Text="{Binding CurrentMasterName}" 
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     FontSize="24"
